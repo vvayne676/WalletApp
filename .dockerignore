@@ -1,0 +1,83 @@
+# 💰 WalletApp Docker忽略文件
+# 优化Docker构建，排除不必要的文件
+
+# Git相关
+.git
+.gitignore
+.gitattributes
+
+# 开发工具
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 构建产物
+walletapp
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 测试覆盖
+*.out
+coverage.html
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+
+# 文档和说明
+README.md
+*.md
+docs/
+
+# 测试文件
+*_test.go
+test_*.sh
+run_tests.sh
+
+# Docker相关
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# 开发环境配置
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Node.js (如果有前端)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 备份文件
+*.bak
+*.backup
+*.sql.gz
+
+# 编辑器配置
+.editorconfig
+
+ 

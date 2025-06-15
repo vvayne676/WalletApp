@@ -1,0 +1,258 @@
+{
+    "info": {
+        "_postman_id": "walletapp-api-collection",
+        "name": "WalletApp API",
+        "description": "钱包应用 API 测试集合\n\n包含所有钱包操作的API测试：\n- 存款 (Deposit)\n- 取款 (Withdraw) \n- 转账 (Transfer)\n- 余额查询 (Balance)\n- 交易历史 (History)\n\n使用前请确保服务已启动: docker-compose up",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "健康检查",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/health",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "health"
+                    ]
+                },
+                "description": "检查服务是否正常运行"
+            }
+        },
+        {
+            "name": "存款",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\",\n  \"address\": \"addr_test_user_1\",\n  \"amount\": \"500.50\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/deposit",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "deposit"
+                    ]
+                },
+                "description": "向指定钱包地址存款"
+            }
+        },
+        {
+            "name": "取款",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\",\n  \"address\": \"addr_test_user_1\",\n  \"amount\": \"100.25\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/withdraw",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "withdraw"
+                    ]
+                },
+                "description": "从指定钱包地址取款"
+            }
+        },
+        {
+            "name": "转账",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\",\n  \"from_address\": \"addr_test_user_1\",\n  \"to_address\": \"addr_test_user_2\",\n  \"amount\": \"150.75\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/transfer",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "transfer"
+                    ]
+                },
+                "description": "从一个钱包地址转账到另一个钱包地址"
+            }
+        },
+        {
+            "name": "查询余额",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/balance",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "balance"
+                    ]
+                },
+                "description": "查询用户的总余额（所有钱包余额之和）"
+            }
+        },
+        {
+            "name": "交易历史",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\",\n  \"page\": 1,\n  \"page_size\": 10\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/history",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "history"
+                    ]
+                },
+                "description": "查询用户的交易历史记录（分页）"
+            }
+        },
+        {
+            "name": "错误测试 - 余额不足",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\",\n  \"from_address\": \"addr_test_user_1\",\n  \"to_address\": \"addr_test_user_2\",\n  \"amount\": \"99999\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/transfer",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "transfer"
+                    ]
+                },
+                "description": "测试余额不足的转账请求"
+            }
+        },
+        {
+            "name": "错误测试 - 钱包不存在",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\",\n  \"address\": \"nonexistent_address\",\n  \"amount\": \"100\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/deposit",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "deposit"
+                    ]
+                },
+                "description": "测试向不存在的钱包地址存款"
+            }
+        },
+        {
+            "name": "错误测试 - 负数金额",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"user_id\": \"test_user_1\",\n  \"address\": \"addr_test_user_1\",\n  \"amount\": \"-100\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/wallet/deposit",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "wallet",
+                        "deposit"
+                    ]
+                },
+                "description": "测试负数金额的存款请求"
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8080",
+            "description": "API服务器地址"
+        }
+    ]
+}
